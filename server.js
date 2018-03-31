@@ -15,8 +15,8 @@ io.on('connection', (socket) => {
   console.log("Socket Connected: " + socket.id);
 })
 
-app.use(express.static(__dirname + '/public'))
+app.use('/', express.static(__dirname + '/public'))
 
-app.listen(5555, () => {
+server.listen(5555, () => {
   console.log("Server listening on http://localhost:5555/");
 })
