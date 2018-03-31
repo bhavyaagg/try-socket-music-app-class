@@ -11,11 +11,21 @@ const socketIO = require('socket.io');
 const server = http.Server(app);
 const io = socketIO(server);
 
+const sockets = [];
+
 io.on('connection', (socket) => {
   console.log("Socket Connected: " + socket.id);
+  sockets.push(socket.id)
   
   socket.on('music', function (id) {
-    io.emit('music', id);
+    let randomSocketId = sockets[Math.floor(Math.random() * sockets.length)];
+    console.log(randomSocketId)
+    io.to(randomSocketId).emit('music', id);
+  })
+  
+  socket.on('disconnect', () => {
+    sockets.splice(sockets.indexOf(socket.id), 1);
+    console.log("abc")
   })
   
 })
