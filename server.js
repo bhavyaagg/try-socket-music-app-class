@@ -13,6 +13,11 @@ const io = socketIO(server);
 
 io.on('connection', (socket) => {
   console.log("Socket Connected: " + socket.id);
+  
+  socket.on('music', function (id) {
+    io.emit('music', id);
+  })
+  
 })
 
 app.use('/', express.static(__dirname + '/public'))
